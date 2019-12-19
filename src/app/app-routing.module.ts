@@ -8,6 +8,11 @@ import {DirectivesComponent} from './components/directives/directives.component'
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'parent-child',
+    pathMatch: 'full'
+  },
+  {
     path: 'parent-child',
     component: ParentChildComponent
   },

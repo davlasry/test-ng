@@ -1,1 +1,18 @@
-<p>students works!</p>
+<h3 #listTitle>Students</h3>
+
+<app-student *ngFor="let student of students" [student]="student">
+  <div class="sample-div" style="color: blue">Hi, I am a div
+    <div style="color: purple">
+      Containing another div
+    </div>
+  </div>
+  <div>Without any selector</div>
+  <ng-container *ngIf="student.age > 21">
+    <ng-container  *ngTemplateOutlet="oldStudent"></ng-container>
+  </ng-container>
+  <button #studentCardButton>View more</button>
+
+  <ng-template #oldStudent>
+    <div class="field">He is an oldStudent</div>
+  </ng-template>
+</app-student>

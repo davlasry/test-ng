@@ -1,1 +1,15 @@
-<p>student works!</p>
+<div class="student-card">
+  <div class="field">{{ student.firstName }} {{ student.lastName }}</div>
+  <div class="field">Age: {{ student.age }}</div>
+  <div class="field">School: {{ student.school }}</div>
+  <div class="field">Grade: {{ student.grade }}</div>
+
+  <!--Css selector-->
+    <ng-content select=".sample-div"></ng-content>
+
+  <!--  HTML element selector-->
+  <ng-content select="button"></ng-content>
+
+  <!--    all the ng content or what is not selected-->
+    <ng-content></ng-content>
+</div>
