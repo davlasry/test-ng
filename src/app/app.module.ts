@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,8 @@ import { DirectivesComponent } from './components/directives/directives.componen
 import { DynamicCompsComponent } from './components/dynamic-comps/dynamic-comps.component';
 import { StudentsComponent } from './components/parent-child/students-list/students.component';
 import { StudentComponent } from './components/parent-child/student/student.component';
+import {ChildModuleModule} from './child-module/child-module.module';
+import {StudentsService} from './services/students.service';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,15 @@ import { StudentComponent } from './components/parent-child/student/student.comp
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChildModuleModule
   ],
-  providers: [],
+  providers: [
+    StudentsService,
+    {
+      provide: LOCALE_ID, useValue: 'fr'
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,9 +7,10 @@ import {StudentsService} from '../../../services/students.service';
   selector: 'app-students',
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss'],
-  providers: [
-    StudentsService
-  ]
+  // already provided in the parent app component
+  // providers: [
+  //   StudentsService
+  // ]
 })
 export class StudentsComponent implements OnInit, AfterViewInit {
   students: Student[];
@@ -37,6 +38,12 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       this.students = val;
     });
     console.log('on ngOnInit Students');
+
+    this.studentsService.behaviorSubject.subscribe(value => {
+      console.log('StudentsComponent', value);
+    });
+
+    this.studentsService.behaviorSubject.next(555);
   }
 
   ngAfterViewInit() {
