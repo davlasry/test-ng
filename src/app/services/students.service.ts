@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Student, students} from '../components/parent-child/students.data';
+import {delay} from 'rxjs/operators';
 
 @Injectable()
 export class StudentsService {
@@ -12,6 +13,6 @@ export class StudentsService {
   }
 
   getStudents(): Observable<Student[]> {
-    return of(students);
+    return of(students).pipe(delay(500));
   }
 }

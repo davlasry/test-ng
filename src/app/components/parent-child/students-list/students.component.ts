@@ -2,6 +2,9 @@ import {AfterViewInit, Component, ContentChild, ElementRef, OnInit, QueryList, V
 import {Student, students} from '../students.data';
 import {StudentComponent} from '../student/student.component';
 import {StudentsService} from '../../../services/students.service';
+import {Store} from '@ngrx/store';
+import {State, StudentsState} from '../../../reducers';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-students',
@@ -13,7 +16,7 @@ import {StudentsService} from '../../../services/students.service';
   // ]
 })
 export class StudentsComponent implements OnInit, AfterViewInit {
-  students: Student[];
+  students$: Observable<Student[]>;
 
   /* Reference to html element */
   @ViewChild('listTitle', {static: false})
@@ -31,12 +34,14 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   @ViewChildren(StudentComponent, {read: ElementRef})
   studentsComponent: QueryList<ElementRef>;
 
-  constructor(private studentsService: StudentsService) { }
+  constructor(private studentsService: StudentsService, private store: Store<StudentsState>) { }
 
   ngOnInit() {
-    this.studentsService.getStudents().pipe().subscribe( val => {
-      this.students = val;
-    });
+    // this.studentsService.getStudents().pipe().subscribe( val => {
+    //   this.students = val;
+    // });
+
+    this.students$ = this.store.select(state => state.students.list);
     console.log('on ngOnInit Students');
 
     this.studentsService.behaviorSubject.subscribe(value => {

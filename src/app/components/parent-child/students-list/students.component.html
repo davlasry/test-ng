@@ -1,6 +1,10 @@
 <h3 #listTitle>Students</h3>
 
-<app-student *ngFor="let student of students" [student]="student">
+<div *ngIf="(students$ | async).length === 0">
+  Loading
+</div>
+
+<app-student *ngFor="let student of students$ | async" [student]="student">
   <div class="sample-div" style="color: blue">Hi, I am a div
     <div style="color: purple">
       Containing another div

@@ -4,6 +4,8 @@ import {ParentChildComponent} from './components/parent-child/parent-child.compo
 import {FormComponent} from './components/form/form.component';
 import {DynamicCompsComponent} from './components/dynamic-comps/dynamic-comps.component';
 import {DirectivesComponent} from './components/directives/directives.component';
+import {StudentsGuard} from './guards/students.guard';
+import {StudentsResolver} from './resolvers/students.resolver';
 
 
 const routes: Routes = [
@@ -14,7 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'parent-child',
-    component: ParentChildComponent
+    component: ParentChildComponent,
+    // canActivate: [StudentsGuard]
+    resolve: {students: StudentsResolver}
   },
   {
     path: 'form',

@@ -2,6 +2,8 @@ import {AfterViewInit, Component, ElementRef, Inject, LOCALE_ID, OnInit, ViewChi
 import {StudentsService} from './services/students.service';
 import {fromEvent, interval, merge, Observable, Subject} from 'rxjs';
 import {map, mergeAll, mergeMap, switchAll, switchMap, takeUntil} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {GetStudents, State} from './reducers';
 
 @Component({
   selector: 'app-root',
@@ -22,14 +24,21 @@ export class AppComponent implements OnInit, AfterViewInit {
   interval$: Observable<number> = interval(1000);
   click$: Observable<any>;
 
-  constructor(@Inject(LOCALE_ID) locale: string, private studentsService: StudentsService) {
+  constructor(@Inject(LOCALE_ID) locale: string,
+              private studentsService: StudentsService,
+              private store: Store<State>) {
     console.log(locale);
   }
 
   ngOnInit() {
+    console.log('app init');
+
     this.studentsService.behaviorSubject.subscribe(val => {
       console.log('AppComponent', val);
     });
+
+    // this.store.dispatch(new GetStudents());
+
 
     this.studentsService.behaviorSubject.next(222);
 

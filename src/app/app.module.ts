@@ -12,6 +12,14 @@ import { StudentsComponent } from './components/parent-child/students-list/stude
 import { StudentComponent } from './components/parent-child/student/student.component';
 import {ChildModuleModule} from './child-module/child-module.module';
 import {StudentsService} from './services/students.service';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
+import {StudentsGuard} from './guards/students.guard';
+import {StudentsResolver} from './resolvers/students.resolver';
 
 @NgModule({
   declarations: [
@@ -27,10 +35,15 @@ import {StudentsService} from './services/students.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ChildModuleModule
+    ChildModuleModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([AppEffects])
   ],
   providers: [
     StudentsService,
+    StudentsGuard,
+    StudentsResolver,
     {
       provide: LOCALE_ID, useValue: 'fr'
     }
